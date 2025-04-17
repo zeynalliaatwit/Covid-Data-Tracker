@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LiveCharts.Wpf;
+using LiveCharts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,11 +27,13 @@ namespace Covid_Data_Tracker
             this.data = data;
             InitializeComponent();
             DataGridView.ItemsSource = data;
+
+            LoadCharts();
         }
 
         private void FindDate_Click(object sender, RoutedEventArgs e)
         {
-            if(DateFilter.SelectedDate.HasValue)
+            if (DateFilter.SelectedDate.HasValue)
             {
                 DateTime selectedDate = DateFilter.SelectedDate.Value;
                 DataPoint match = FileLoader.FindData(data, selectedDate);
@@ -46,9 +50,52 @@ namespace Covid_Data_Tracker
             }
         }
 
+        private void LoadCharts()
+        {
+            // North Chart
+            NorthChart.Series = new SeriesCollection
+            {
+                new LineSeries
+                {
+                    Title = "North",
+                    Values = new ChartValues<int>(data.Select(d => d.North))
+                }
+            };
+
+            NorthChart.AxisX[0].Labels = data.Select(d => d.ParsedDate.ToString("MM/yyyy")).ToList();
+
+            // South Chart
+            SouthChart.Series = new SeriesCollection
+            {
+                new LineSeries
+                {
+                    Title = "South",
+                    Values = new ChartValues<int>(data.Select(d => d.South))
+                }
+            };
+
+            SouthChart.AxisX[0].Labels = data.Select(d => d.ParsedDate.ToString("MM/yyyy")).ToList();
+
+            TotalChart.Series = new SeriesCollection
+            {
+                new LineSeries
+                {
+                    Title = "Total",
+                    Values = new ChartValues<int>(data.Select(d => d.North + d.South))
+                }
+            };
+
+            TotalChart.AxisX[0].Labels = data.Select(d => d.ParsedDate.ToString("MM/yyyy")).ToList();
+        }
+
         private void Clear_Click(object sender, RoutedEventArgs e)
         {
-            //DataGridView.ItemsSource = data;
+            DataGridView.ItemsSource = data;
+        }
+
+        private void DataGridView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

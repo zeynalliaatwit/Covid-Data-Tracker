@@ -36,7 +36,8 @@ namespace Covid_Data_Tracker
     class FileLoader
     {
         static int zeroInARow = 1;
-        
+        static string i;
+
         //This method will load the file and parse it
         public static List<DataPoint> LoadParseFile(string path)
         {
@@ -44,7 +45,7 @@ namespace Covid_Data_Tracker
             int validSouth = 0;
             int validNorth = 0;
             
-
+            
 
             
             try
@@ -79,9 +80,13 @@ namespace Covid_Data_Tracker
                         {
                             values[2] = "0";
                         }
+                        i = values[0];
 
-                        DataPoint dp = new DataPoint(values[0], int.Parse(values[1]), int.Parse(values[2]));
-                        dataPoints.Add(dp);
+                        if (values[0] != "")
+                        {
+                            DataPoint dp = new DataPoint(values[0], int.Parse(values[1]), int.Parse(values[2]));
+                            dataPoints.Add(dp);
+                        }                             
                     }
 
                     // go through the list if a value is 0 find the average of prev and next nonzero value
@@ -124,15 +129,17 @@ namespace Covid_Data_Tracker
                             }
                             zeroInARow = 1;
                         }
+                        
                     }
-
                 }
 
             }
             catch (Exception ex)
             {
+                Console.WriteLine(i);
                 Console.WriteLine($"Error reading file: {ex.Message}");
             }
+
 
 
             return dataPoints;

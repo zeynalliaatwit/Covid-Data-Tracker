@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Covid_Data_Tracker"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
         Title="DataWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
@@ -15,7 +16,7 @@
                         <Button Content="Find" Click="FindDate_Click" Width="60" Height="20" Margin="0,0,10,0"/>
                         <Button Content="Clear" Click="Clear_Click" Width="60" Height="20"/>
                     </StackPanel>
-                    <DataGrid x:Name="DataGridView" AutoGenerateColumns="False" Margin="0,50,0,0" Height="235" SelectionChanged="DataGridView_SelectionChanged">
+                    <DataGrid x:Name="DataGridView" AutoGenerateColumns="False" Margin="0,50,0,0" Height="235">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Date" Binding="{Binding ParsedDate}" Width="*" />
                             <DataGridTextColumn Header="North" Binding="{Binding North}" Width="*" />
@@ -27,7 +28,40 @@
 
 
             <TabItem Header="Chart">
-                <TextBlock Text="Chart coming soon.." Margin="10" />
+                <TabControl>
+                    <TabItem Header="North">
+                        <lvc:CartesianChart x:Name="NorthChart">
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Title="Date" Labels="{Binding NorthDates}" LabelsRotation="45"/>
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="Cases"/>
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
+                    </TabItem>
+                    <TabItem Header="South">
+                        <lvc:CartesianChart x:Name="SouthChart">
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Title="Date" Labels="{Binding SouthDates}" LabelsRotation="45"/>
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="Cases"/>
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
+                    </TabItem>
+                    <TabItem Header="Total">
+                        <lvc:CartesianChart x:Name="TotalChart">
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Title="Date" Labels="{Binding SouthDates}" LabelsRotation="45"/>
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="Cases"/>
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
+                    </TabItem>
+                </TabControl>
+                
+                
             </TabItem>
 
             <TabItem Header="Summary">
