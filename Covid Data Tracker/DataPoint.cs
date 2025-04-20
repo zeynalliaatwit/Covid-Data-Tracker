@@ -8,13 +8,15 @@ using System.Globalization;
 
 namespace Covid_Data_Tracker
 {
+
+    /**
+     * This class represents a DataPoint object. It holds the values of each days Covid Samples for North and South pipes.
+     */
     public class DataPoint
     {
         public int North { get; set; }
         public int South { get; set; }
         public DateTime ParsedDate { get; set; }
-
-        private string date;
 
         public DataPoint(string date, int south, int north)
         {

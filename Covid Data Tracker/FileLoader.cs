@@ -7,31 +7,11 @@ using System.Threading.Tasks;
 using System.Runtime.Intrinsics.Arm;
 
 
-
-
-/**TO DO
-     * BACKEND
-     * Make findNext generic
-     * What kind of graphs may we have
-     *                                                                  Mask Mandate
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * FRONTEND
-     * NEXT::: set up window
-     * Load button.
-     * 
-     */
-
-
 namespace Covid_Data_Tracker
 {
 
     /**
-     * This class does the backed tasks
+     * This class does the backend tasks as loading the Data and parsing it 
      */
     class FileLoader
     {
@@ -45,22 +25,17 @@ namespace Covid_Data_Tracker
             int validSouth = 0;
             int validNorth = 0;
             
-            
-
-            
             try
             {
 
                 using (StreamReader reader = new StreamReader(path))
                 {
 
-
                     //We need to skip first 3 lines as they are headers
                     for (int i = 0; i < 3; i++)
                     {
                         reader.ReadLine();
                     }
-
 
                     //Read the lines and create DataPoint objects each with south and north covid samples count
 
@@ -100,7 +75,7 @@ namespace Covid_Data_Tracker
                                 prev = dataPoints[i - 1].North;
                             }
 
-                            int next = findNextNonZeroNorth(dataPoints, i);
+                            int next = findNextNonZero(dataPoints, i, true);
                             // we lose the decimal part but its okay
                             int avg = (prev + next) / 2;
                             int limit = i + zeroInARow;
@@ -119,8 +94,7 @@ namespace Covid_Data_Tracker
                                 prev = dataPoints[i - 1].South;
                             }
 
-                            int next = findNextNonZeroSouth(dataPoints, i);
-                            // we lose the decimal part but its okay
+                            int next = findNextNonZero(dataPoints, i, false);
                             int avg = (prev + next) / 2;
                             int limit = i + zeroInARow;
                             for (int j = i; j < limit; j++)
@@ -162,27 +136,15 @@ namespace Covid_Data_Tracker
          * @param start We start to check from the current element
          * @return We return the next nonzero element
         */
-        public static int findNextNonZeroNorth(List<DataPoint> dataPoints, int current)
+        public static int findNextNonZero(List<DataPoint> dataPoints, int current, bool isNorth)
         {
             for (int i = current + 1; i < dataPoints.Count; i++)
             {
-                if (dataPoints[i].North != 0)
+                if (isNorth == true && dataPoints[i].North != 0)
                 {
                     return dataPoints[i].North;
                 }
-                zeroInARow++;
-            }
-
-            //this is in case we do not find any nonzero element after the current element, not gonna hook this up as the values at the end of our list are not 0
-            return dataPoints[current - 1].North;
-        }
-
-
-        public static int findNextNonZeroSouth(List<DataPoint> dataPoints, int current)
-        {
-            for (int i = current + 1; i < dataPoints.Count; i++)
-            {
-                if (dataPoints[i].South != 0)
+                else if (isNorth == false && dataPoints[i].South != 0)
                 {
                     return dataPoints[i].South;
                 }
@@ -190,10 +152,15 @@ namespace Covid_Data_Tracker
             }
 
             //this is in case we do not find any nonzero element after the current element, not gonna hook this up as the values at the end of our list are not 0
-            return dataPoints[current - 1].South;
+            return 0;
         }
 
-        
+        /**
+         * This method will find the asked date and return the object
+         * @param datapoints We input the whole list
+         * @param selectedTime This is the date user is looking for
+         * @return Datapoint object that matches the date
+         */
         public static DataPoint FindData(List<DataPoint> dataPoints, DateTime selectedTime)
         {
             for(int i = 0; i < dataPoints.Count; i++)

@@ -41,11 +41,6 @@ namespace Covid_Data_Tracker
         public static void LoadParseFile(string path)
         {
             List<DataPoint> dataPoints = new List<DataPoint>();
-            int validSouth = 0;
-            int validNorth = 0;
-            
-
-
             
             try
             {
