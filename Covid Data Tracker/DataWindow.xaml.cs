@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static System.Collections.Specialized.BitVector32;
 
 namespace Covid_Data_Tracker
 {
@@ -76,6 +77,7 @@ namespace Covid_Data_Tracker
 
             SouthChart.AxisX[0].Labels = data.Select(d => d.ParsedDate.ToString("MM/yyyy")).ToList();
 
+            // Total Chart
             TotalChart.Series = new SeriesCollection
             {
                 new LineSeries
@@ -86,6 +88,37 @@ namespace Covid_Data_Tracker
             };
 
             TotalChart.AxisX[0].Labels = data.Select(d => d.ParsedDate.ToString("MM/yyyy")).ToList();
+
+            int maskIndex = data.FindIndex(d => d.ParsedDate.Month == 4 && d.ParsedDate.Year == 2020);
+
+            if(maskIndex >= 0)
+            {
+                var maskLine = new AxisSection
+                {
+                    Value = maskIndex,
+                    Stroke = Brushes.Red,
+                    StrokeThickness = 2,
+                    SectionWidth = 0.5,
+                    StrokeDashArray = new DoubleCollection { 2 },
+                };
+
+                TotalChart.AxisX[0].Sections = new SectionsCollection { maskLine };
+            }
+
+            int omicronIndex = data.FindIndex(d => d.ParsedDate.Month == 11 && d.ParsedDate.Year == 2021);
+            if (omicronIndex >= 0)
+            {
+                var omicronLine = new AxisSection
+                {
+                    Value = omicronIndex,                  // X-axis index
+                    Stroke = Brushes.Green,
+                    StrokeThickness = 2,
+                    SectionWidth = 0.5,
+                    StrokeDashArray = new DoubleCollection { 2 },
+                };
+
+                TotalChart.AxisX[0].Sections.Add(omicronLine);
+            }
         }
 
         private void Clear_Click(object sender, RoutedEventArgs e)

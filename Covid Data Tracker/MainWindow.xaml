@@ -9,8 +9,8 @@
     <Grid>
         <StackPanel>
             <TextBlock Text="Welcome to Covid Data Tracker" FontSize="12" FontWeight="Bold" Width="178" Margin="15,10,0,0" RenderTransformOrigin="0.625,0.504" />
-            <TextBlock Text="Select the file" FontSize="12" FontWeight="Bold" Width="79" Margin="0" RenderTransformOrigin="0.625,0.504" />
-            <Button Content="Load Data" Click="LoadData_Click" Width="120" Height="40" Margin="30"/>
+            <TextBlock Text="Select the file" FontSize="12" FontWeight="Bold" Width="79" Margin="0 30 0 10" RenderTransformOrigin="0.625,0.504" />
+            <Button Content="Load Data" Click="LoadData_Click" Width="120" Height="40" Margin="0"/>
         </StackPanel>
     </Grid>
 </Window>
