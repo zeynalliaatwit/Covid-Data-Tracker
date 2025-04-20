@@ -5,8 +5,6 @@ VisualStudioVersion = 17.13.35828.75
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Covid Data Tracker", "Covid Data Tracker\Covid Data Tracker.csproj", "{FE7E4D2A-FB65-44E3-BF86-1042EF6B1DFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backend", "Backend\Backend.csproj", "{74FF26E1-529C-48D8-BA79-B7A82EFBF9D7}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{FE7E4D2A-FB65-44E3-BF86-1042EF6B1DFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE7E4D2A-FB65-44E3-BF86-1042EF6B1DFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE7E4D2A-FB65-44E3-BF86-1042EF6B1DFF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{74FF26E1-529C-48D8-BA79-B7A82EFBF9D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{74FF26E1-529C-48D8-BA79-B7A82EFBF9D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{74FF26E1-529C-48D8-BA79-B7A82EFBF9D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{74FF26E1-529C-48D8-BA79-B7A82EFBF9D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
