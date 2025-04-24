@@ -103,7 +103,7 @@ namespace Covid_Data_Tracker
                             zeroInARow = 1;
                         }
                         
-                    }
+                    }            
                 }
 
             }
@@ -114,7 +114,7 @@ namespace Covid_Data_Tracker
             }
 
 
-
+            calculateWeekly(dataPoints);
             return dataPoints;
         }
 
@@ -171,6 +171,27 @@ namespace Covid_Data_Tracker
             }
             return null;
         }
-        
+        public static void calculateWeekly(List<DataPoint> dataPoints)
+        {
+            
+
+            for (int i = 6; i < dataPoints.Count; i++)
+            {
+                int southAvg = 0;
+                int northAvg = 0;
+                
+                for (int j = i - 6; j <= i; j++)
+                {
+                    southAvg += dataPoints[j].South;
+                    northAvg += dataPoints[j].North;
+                }
+
+                dataPoints[i].WeeklyAverageSouth = southAvg / 7;
+                dataPoints[i].WeeklyAverageNorth = northAvg / 7;
+
+            }
+        }
     }
+
+    
 }

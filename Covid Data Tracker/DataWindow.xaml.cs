@@ -59,11 +59,11 @@ namespace Covid_Data_Tracker
                 new LineSeries
                 {
                     Title = "North",
-                    Values = new ChartValues<int>(data.Select(d => d.North))
+                    Values = new ChartValues<int>(data.Select(d => d.WeeklyAverageNorth))
                 }
             };
 
-            NorthChart.AxisX[0].Labels = data.Select(d => d.ParsedDate.ToString("MM/yyyy")).ToList();
+            NorthChart.AxisX[0].Labels = data.Select(d => d.ParsedDate.ToString("MM/dd/yyyy")).ToList();
 
             // South Chart
             SouthChart.Series = new SeriesCollection
@@ -71,11 +71,11 @@ namespace Covid_Data_Tracker
                 new LineSeries
                 {
                     Title = "South",
-                    Values = new ChartValues<int>(data.Select(d => d.South))
+                    Values = new ChartValues<int>(data.Select(d => d.WeeklyAverageSouth))
                 }
             };
 
-            SouthChart.AxisX[0].Labels = data.Select(d => d.ParsedDate.ToString("MM/yyyy")).ToList();
+            SouthChart.AxisX[0].Labels = data.Select(d => d.ParsedDate.ToString("MM/dd/yyyy")).ToList();
 
             // Total Chart
             TotalChart.Series = new SeriesCollection
@@ -83,11 +83,11 @@ namespace Covid_Data_Tracker
                 new LineSeries
                 {
                     Title = "Total",
-                    Values = new ChartValues<int>(data.Select(d => d.North + d.South))
+                    Values = new ChartValues<int>(data.Select(d => d.WeeklyAverageNorth + d.WeeklyAverageSouth))
                 }
             };
 
-            TotalChart.AxisX[0].Labels = data.Select(d => d.ParsedDate.ToString("MM/yyyy")).ToList();
+            TotalChart.AxisX[0].Labels = data.Select(d => d.ParsedDate.ToString("MM/dd/yyyy")).ToList();
 
             int maskIndex = data.FindIndex(d => d.ParsedDate.Month == 4 && d.ParsedDate.Year == 2020);
 

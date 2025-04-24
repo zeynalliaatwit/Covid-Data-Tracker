@@ -27,7 +27,7 @@
             </TabItem>
 
 
-            <TabItem Header="Chart">
+            <TabItem Header="Rolling Averages">
                 <TabControl>
                     <TabItem Header="North">
                         <lvc:CartesianChart x:Name="NorthChart">
