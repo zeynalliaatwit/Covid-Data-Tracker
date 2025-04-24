@@ -53,8 +53,9 @@ namespace Covid_Data_Tracker
                         {
                             values[2] = "0";
                         }
-                        i = values[0];
 
+                        // only adding valid dates
+                        i = values[0];
                         if (values[0] != "")
                         {
                             DataPoint dp = new DataPoint(values[0], int.Parse(values[1]), int.Parse(values[2]));

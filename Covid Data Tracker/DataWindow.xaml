@@ -60,12 +60,8 @@
                         </lvc:CartesianChart>
                     </TabItem>
                 </TabControl>
-                
-                
-            </TabItem>
 
-            <TabItem Header="Summary">
-                <TextBlock Text="Summary coming soon.." Margin="10" />
+
             </TabItem>
         </TabControl>
     </Grid>
