@@ -89,6 +89,7 @@ namespace Covid_Data_Tracker
 
             TotalChart.AxisX[0].Labels = data.Select(d => d.ParsedDate.ToString("MM/dd/yyyy")).ToList();
 
+            // adding lines for mask mandate and omicron variant
             int maskIndex = data.FindIndex(d => d.ParsedDate.Month == 4 && d.ParsedDate.Year == 2020);
 
             if(maskIndex >= 0)
@@ -110,7 +111,7 @@ namespace Covid_Data_Tracker
             {
                 var omicronLine = new AxisSection
                 {
-                    Value = omicronIndex,                  // X-axis index
+                    Value = omicronIndex,
                     Stroke = Brushes.Green,
                     StrokeThickness = 2,
                     SectionWidth = 0.5,
@@ -124,11 +125,6 @@ namespace Covid_Data_Tracker
         private void Clear_Click(object sender, RoutedEventArgs e)
         {
             DataGridView.ItemsSource = data;
-        }
-
-        private void DataGridView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
         }
     }
 }

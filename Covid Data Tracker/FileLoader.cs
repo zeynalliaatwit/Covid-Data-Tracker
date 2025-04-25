@@ -16,7 +16,7 @@ namespace Covid_Data_Tracker
     class FileLoader
     {
         static int zeroInARow = 1;
-        static string i;
+        static string date;
 
         //This method will load the file and parse it
         public static List<DataPoint> LoadParseFile(string path)
@@ -55,7 +55,7 @@ namespace Covid_Data_Tracker
                         }
 
                         // only adding valid dates
-                        i = values[0];
+                        date = values[0];
                         if (values[0] != "")
                         {
                             DataPoint dp = new DataPoint(values[0], int.Parse(values[1]), int.Parse(values[2]));
@@ -109,7 +109,7 @@ namespace Covid_Data_Tracker
             }
             catch (Exception ex)
             {
-                Console.WriteLine(i);
+                Console.WriteLine(date);
                 Console.WriteLine($"Error reading file: {ex.Message}");
             }
 

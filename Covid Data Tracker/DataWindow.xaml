@@ -19,8 +19,8 @@
                     <DataGrid x:Name="DataGridView" AutoGenerateColumns="False" Margin="0,50,0,0" Height="235">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Date" Binding="{Binding ParsedDate}" Width="*" />
-                            <DataGridTextColumn Header="North" Binding="{Binding North}" Width="*" />
-                            <DataGridTextColumn Header="South" Binding="{Binding South}" Width="*" />
+                            <DataGridTextColumn Header="North System" Binding="{Binding North}" Width="*" />
+                            <DataGridTextColumn Header="South System" Binding="{Binding South}" Width="*" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </StackPanel>
