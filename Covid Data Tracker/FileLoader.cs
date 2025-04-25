@@ -171,6 +171,11 @@ namespace Covid_Data_Tracker
             }
             return null;
         }
+
+        /**
+         * This function will calculate the rolling weekly averages. It will use sliding window technique
+         * @param dataPoints We input the whole list
+         */
         public static void calculateWeekly(List<DataPoint> dataPoints)
         {
             
