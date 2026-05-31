@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Globalization;
 
-namespace Covid_Data_Tracker
+namespace Covid_Data_Tracker.Models
 {
 
     /**

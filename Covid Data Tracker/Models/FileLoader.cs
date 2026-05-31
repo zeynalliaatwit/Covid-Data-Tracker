@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Runtime.Intrinsics.Arm;
 
 
-namespace Covid_Data_Tracker
+namespace Covid_Data_Tracker.Models
 {
 
     /**

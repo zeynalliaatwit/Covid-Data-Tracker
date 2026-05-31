@@ -11,12 +11,12 @@
         <TabControl>
             <TabItem Header="Data Table">
                 <StackPanel Margin="10">
-                    <DatePicker x:Name="DateFilter" Width="105" />
+                    <DatePicker SelectedDate="{Binding SelectedDate, Mode=TwoWay}" Width="105" />
                     <StackPanel Orientation="Horizontal" HorizontalAlignment ="Center"  Margin="10">
-                        <Button Content="Find" Click="FindDate_Click" Width="60" Height="20" Margin="0,0,10,0"/>
-                        <Button Content="Clear" Click="Clear_Click" Width="60" Height="20"/>
+                        <Button Content="Find" Command="{Binding FindDateCommand}" Width="60" Height="20" Margin="0,0,10,0"/>
+                        <Button Content="Clear" Command="{Binding ClearDateCommand}" Width="60" Height="20"/>
                     </StackPanel>
-                    <DataGrid x:Name="DataGridView" AutoGenerateColumns="False" Margin="0,50,0,0" Height="235">
+                    <DataGrid ItemsSource="{Binding DisplayedData}" AutoGenerateColumns="False" Margin="0,50,0,0" Height="235">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Date" Binding="{Binding ParsedDate}" Width="*" />
                             <DataGridTextColumn Header="North System" Binding="{Binding North}" Width="*" />
@@ -30,9 +30,9 @@
             <TabItem Header="Rolling Averages">
                 <TabControl>
                     <TabItem Header="North">
-                        <lvc:CartesianChart x:Name="NorthChart">
+                        <lvc:CartesianChart Series="{Binding NorthSeries}">
                             <lvc:CartesianChart.AxisX>
-                                <lvc:Axis Title="Date" Labels="{Binding NorthDates}" LabelsRotation="45"/>
+                                <lvc:Axis Title="Date" Labels="{Binding DateLabels}" LabelsRotation="45"/>
                             </lvc:CartesianChart.AxisX>
                             <lvc:CartesianChart.AxisY>
                                 <lvc:Axis Title="Cases"/>
@@ -40,9 +40,9 @@
                         </lvc:CartesianChart>
                     </TabItem>
                     <TabItem Header="South">
-                        <lvc:CartesianChart x:Name="SouthChart">
+                        <lvc:CartesianChart Series="{Binding SouthSeries}">
                             <lvc:CartesianChart.AxisX>
-                                <lvc:Axis Title="Date" Labels="{Binding SouthDates}" LabelsRotation="45"/>
+                                <lvc:Axis Title="Date" Labels="{Binding DateLabels}" LabelsRotation="45"/>
                             </lvc:CartesianChart.AxisX>
                             <lvc:CartesianChart.AxisY>
                                 <lvc:Axis Title="Cases"/>
@@ -50,9 +50,9 @@
                         </lvc:CartesianChart>
                     </TabItem>
                     <TabItem Header="Total">
-                        <lvc:CartesianChart x:Name="TotalChart">
+                        <lvc:CartesianChart Series="{Binding TotalSeries}">
                             <lvc:CartesianChart.AxisX>
-                                <lvc:Axis Title="Date" Labels="{Binding SouthDates}" LabelsRotation="45"/>
+                                <lvc:Axis Title="Date" Labels="{Binding DateLabels}" LabelsRotation="45" Sections="{Binding TotalChartSections}"/>
                             </lvc:CartesianChart.AxisX>
                             <lvc:CartesianChart.AxisY>
                                 <lvc:Axis Title="Cases"/>

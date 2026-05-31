@@ -1,16 +1,12 @@
 ﻿<Window x:Class="Covid_Data_Tracker.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Covid_Data_Tracker"
-        mc:Ignorable="d"
         Title="Covid Data Tracker" Height="200" Width="400" WindowStartupLocation="CenterScreen">
     <Grid>
         <StackPanel>
             <TextBlock Text="Welcome to Covid Data Tracker" FontSize="12" FontWeight="Bold" Width="178" Margin="15,10,0,0" RenderTransformOrigin="0.625,0.504" />
             <TextBlock Text="Select the file" FontSize="12" FontWeight="Bold" Width="79" Margin="0 30 0 10" RenderTransformOrigin="0.625,0.504" />
-            <Button Content="Load Data" Click="LoadData_Click" Width="120" Height="40" Margin="0"/>
+            <Button Content="Load Data" Command="{Binding LoadDataCommand}" Width="120" Height="40" Margin="0"/>
         </StackPanel>
     </Grid>
 </Window>
