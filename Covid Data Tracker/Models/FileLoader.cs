@@ -191,9 +191,21 @@ namespace Covid_Data_Tracker.Models
                     northAvg += dataPoints[j].North;
                 }
 
+                //moving average
                 dataPoints[i].WeeklyAverageSouth = southAvg / 7;
                 dataPoints[i].WeeklyAverageNorth = northAvg / 7;
 
+                //rate of change
+                if(i > 6)
+                {
+                    dataPoints[i].RateOfChangeSouth = dataPoints[i].WeeklyAverageSouth - dataPoints[i - 1].WeeklyAverageSouth;
+                    dataPoints[i].RateOfChangeNorth = dataPoints[i].WeeklyAverageNorth - dataPoints[i - 1].WeeklyAverageNorth;
+                }
+                else
+                {
+                    dataPoints[i].RateOfChangeSouth = 0;
+                    dataPoints[i].RateOfChangeNorth = 0;
+                }
             }
         }
     }

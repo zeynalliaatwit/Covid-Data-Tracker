@@ -19,6 +19,9 @@ namespace Covid_Data_Tracker.Models
         public int WeeklyAverageNorth { get; set; }
         public int WeeklyAverageSouth { get; set; }
         public DateTime ParsedDate { get; set; }
+        
+        public int RateOfChangeNorth { get; set; }
+        public int RateOfChangeSouth { get; set; }
 
         public DataPoint(string date, int south, int north)
         {

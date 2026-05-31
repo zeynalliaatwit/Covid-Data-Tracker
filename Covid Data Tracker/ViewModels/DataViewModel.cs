@@ -35,11 +35,15 @@ namespace Covid_Data_Tracker.ViewModels
         public ICommand FindDateCommand { get; }
         public ICommand ClearDateCommand { get; }
 
-        public SeriesCollection NorthSeries { get; set; }
-        public SeriesCollection SouthSeries { get; set; }
-        public SeriesCollection TotalSeries { get; set; }
+        public SeriesCollection NorthSeries { get; set; } = new SeriesCollection();
+        public SeriesCollection SouthSeries { get; set; } = new SeriesCollection();
+        public SeriesCollection TotalSeries { get; set; } = new SeriesCollection();
 
-        public List<string> DateLabels { get; set; }
+        public SeriesCollection NorthTrendSeries { get; set; } = new SeriesCollection();
+        public SeriesCollection SouthTrendSeries { get; set; } = new SeriesCollection();
+        public SeriesCollection TotalTrendSeries { get; set; } = new SeriesCollection();
+
+        public List<string> DateLabels { get; set; } = new List<string>();
 
         public SectionsCollection TotalChartSections { get; set; }
 
@@ -105,6 +109,36 @@ namespace Covid_Data_Tracker.ViewModels
                 {
                     Title = "Total",
                     Values = new ChartValues<int>(_allData.Select(d => d.WeeklyAverageNorth + d.WeeklyAverageSouth))                
+                }
+            };
+
+            NorthTrendSeries = new SeriesCollection
+            {
+                new LineSeries
+                {
+                    Title = "North Velocity",
+                    Values = new ChartValues<int>(_allData.Select(d => d.RateOfChangeNorth)),
+                    PointGeometry = null
+                }
+            };
+
+            SouthTrendSeries = new SeriesCollection
+            {
+                new LineSeries
+                {
+                    Title = "South Velocity",
+                    Values = new ChartValues<int>(_allData.Select(d => d.RateOfChangeSouth)),
+                    PointGeometry = null
+                }
+            };
+
+            TotalTrendSeries = new SeriesCollection
+            {
+                new LineSeries
+                {
+                    Title = "Total Velocity",
+                    Values = new ChartValues<int>(_allData.Select(d => d.RateOfChangeNorth + d.RateOfChangeSouth)),
+                    PointGeometry = null
                 }
             };
 
