@@ -128,6 +128,11 @@
                                         <Line X1="0" Y1="0" X2="20" Y2="0" Stroke="Green" StrokeThickness="2" StrokeDashArray="2" VerticalAlignment="Center" Margin="0,0,8,0"/>
                                         <TextBlock Text="Omicron Peak (Nov '21)" FontSize="11" Foreground="#555555"/>
                                     </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <Ellipse Width="8" Height="8" Fill="Red" Stroke="DarkRed" Margin="6,0,14,0" />
+                                        <TextBlock Text="Data Anomaly (2-Sigma)" FontSize="11" Foreground="#555555" />
+                                    </StackPanel>
                                 </StackPanel>
                             </Border>
 

@@ -2,12 +2,8 @@
 using Covid_Data_Tracker.Models;
 using LiveCharts;
 using LiveCharts.Wpf;
-using System;
-using System.Collections.Generic;
+using LiveCharts.Defaults;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -108,7 +104,22 @@ namespace Covid_Data_Tracker.ViewModels
                 new LineSeries
                 {
                     Title = "Total",
-                    Values = new ChartValues<int>(_allData.Select(d => d.WeeklyAverageNorth + d.WeeklyAverageSouth))                
+                    Values = new ChartValues<int>(_allData.Select(d => d.WeeklyAverageNorth + d.WeeklyAverageSouth)),
+                    PointGeometry = null
+                },
+
+                new ScatterSeries
+                {
+                    Title = "Anomalies",
+                    Values = new ChartValues<ObservablePoint>(
+                        _allData.Select((d,index) => new {Data = d, Index = index})
+                                .Where(item => item.Data.IsAnomaly)
+                                .Select(item=>new ObservablePoint(item.Index, item.Data.WeeklyAverageNorth + item.Data.WeeklyAverageSouth))
+                    ),
+                    PointGeometry = DefaultGeometries.Circle,
+                    Fill = Brushes.Red,
+                    Stroke = Brushes.DarkRed,
+                    MaxPointShapeDiameter = 12
                 }
             };
 

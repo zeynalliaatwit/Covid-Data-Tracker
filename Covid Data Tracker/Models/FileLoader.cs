@@ -115,6 +115,8 @@ namespace Covid_Data_Tracker.Models
 
 
             calculateWeekly(dataPoints);
+            DetectOutliers(dataPoints);
+
             return dataPoints;
         }
 
@@ -205,6 +207,33 @@ namespace Covid_Data_Tracker.Models
                 {
                     dataPoints[i].RateOfChangeSouth = 0;
                     dataPoints[i].RateOfChangeNorth = 0;
+                }
+            }
+        }
+
+        public static void DetectOutliers(List<DataPoint> dataPoints)
+        {
+            for (int i = 6; i < dataPoints.Count; i++)
+            {
+                int smoothedTotal = dataPoints[i].WeeklyAverageNorth + dataPoints[i].WeeklyAverageSouth;
+                int rawTotal = dataPoints[i].North + dataPoints[i].South;
+
+                double sumOfSquares = 0;
+                for (int j = i - 6; j <= i; j++) 
+                {
+                    int dailyRaw = dataPoints[j].North + dataPoints[j].South;
+                    sumOfSquares += Math.Pow(dailyRaw - smoothedTotal, 2);
+                }
+
+                double stdDev = Math.Sqrt(sumOfSquares / 7);
+
+                if(stdDev > 50 && Math.Abs(rawTotal - smoothedTotal) > (2 * stdDev))
+                {
+                    dataPoints[i].IsAnomaly = true;
+                }
+                else
+                {
+                    dataPoints[i].IsAnomaly = false;
                 }
             }
         }

@@ -23,6 +23,8 @@ namespace Covid_Data_Tracker.Models
         public int RateOfChangeNorth { get; set; }
         public int RateOfChangeSouth { get; set; }
 
+        public bool IsAnomaly { get; set; }
+
         public DataPoint(string date, int south, int north)
         {
             North = north;
