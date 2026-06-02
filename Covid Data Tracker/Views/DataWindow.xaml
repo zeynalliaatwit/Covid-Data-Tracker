@@ -35,8 +35,8 @@
                                 <RowDefinition Height="2*"/>
                                 <RowDefinition Height="1*"/>
                             </Grid.RowDefinitions>
-                            
-                            <lvc:CartesianChart Grid.Row="0" Series="{Binding NorthSeries}" Margin="0,0,0,10">
+
+                            <lvc:CartesianChart Grid.Row="0" Series="{Binding NorthSeries}" Margin="0,0,0,10" DisableAnimations="True">
                                 
                                 <lvc:CartesianChart.AxisX>
                                     <lvc:Axis Title="Date" Labels="{Binding DateLabels}" LabelsRotation="45"/>
@@ -47,7 +47,7 @@
                                 </lvc:CartesianChart.AxisY>
                             </lvc:CartesianChart>
 
-                            <lvc:CartesianChart Grid.Row="1" Series="{Binding NorthTrendSeries}">
+                            <lvc:CartesianChart Grid.Row="1" Series="{Binding NorthTrendSeries}" DisableAnimations="True">
                                 
                                 <lvc:CartesianChart.AxisX>
                                     <lvc:Axis Labels="{Binding DateLabels}" ShowLabels="False"/>
@@ -68,7 +68,7 @@
                                 <RowDefinition Height="1*"/>
                             </Grid.RowDefinitions>
 
-                            <lvc:CartesianChart Grid.Row="0" Series="{Binding SouthSeries}" Margin="0,0,0,10">
+                            <lvc:CartesianChart Grid.Row="0" Series="{Binding SouthSeries}" Margin="0,0,0,10" DisableAnimations="True">
                                 
                                 <lvc:CartesianChart.AxisX>
                                     <lvc:Axis Title="Date" Labels="{Binding DateLabels}" LabelsRotation="45"/>
@@ -80,7 +80,7 @@
                                 
                             </lvc:CartesianChart>
 
-                            <lvc:CartesianChart Grid.Row="1" Series="{Binding SouthTrendSeries}">
+                            <lvc:CartesianChart Grid.Row="1" Series="{Binding SouthTrendSeries}" DisableAnimations="True">
                                 
                                 <lvc:CartesianChart.AxisX>
                                     <lvc:Axis Labels="{Binding DateLabels}" ShowLabels="False" />
@@ -102,7 +102,7 @@
                                 <RowDefinition Height="1*"/>
                             </Grid.RowDefinitions>
 
-                            <lvc:CartesianChart Grid.Row="0" Series="{Binding TotalSeries}" Margin="0,0,0,10">
+                            <lvc:CartesianChart Grid.Row="0" Series="{Binding TotalSeries}" Margin="0,0,0,10" DisableAnimations="True">
                                 
                                 <lvc:CartesianChart.AxisX>
                                     <lvc:Axis Title="Date" Labels="{Binding DateLabels}" LabelsRotation="45" Sections="{Binding TotalChartSections}"/>
@@ -136,7 +136,7 @@
                                 </StackPanel>
                             </Border>
 
-                            <lvc:CartesianChart Grid.Row="1" Series="{Binding TotalTrendSeries}">
+                            <lvc:CartesianChart Grid.Row="1" Series="{Binding TotalTrendSeries}" DisableAnimations="True">
                                 
                                 <lvc:CartesianChart.AxisX>
                                     <lvc:Axis Labels="{Binding DateLabels}" ShowLabels="False" />

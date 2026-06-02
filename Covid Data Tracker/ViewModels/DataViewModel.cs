@@ -86,7 +86,8 @@ namespace Covid_Data_Tracker.ViewModels
                 new LineSeries
                 {
                     Title = "North",
-                    Values = new ChartValues<int>(_allData.Select(d => d.WeeklyAverageNorth))
+                    Values = new ChartValues<int>(_allData.Select(d => d.WeeklyAverageNorth)),
+                    PointGeometry = null,
                 }
             };
 
@@ -95,7 +96,8 @@ namespace Covid_Data_Tracker.ViewModels
                 new LineSeries
                 {
                     Title = "South",
-                    Values = new ChartValues<int>(_allData.Select(d => d.WeeklyAverageSouth))
+                    Values = new ChartValues<int>(_allData.Select(d => d.WeeklyAverageSouth)),
+                    PointGeometry = null,
                 }
             };
 
