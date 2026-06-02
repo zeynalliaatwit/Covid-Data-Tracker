@@ -28,131 +28,142 @@
 
 
             <TabItem Header="Rolling Averages">
-                <TabControl>
-                    <TabItem Header="North">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="2*"/>
-                                <RowDefinition Height="1*"/>
-                            </Grid.RowDefinitions>
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                        <TextBlock Text="Start Date:" VerticalAlignment="Center" Margin="0,0,5,0" FontWeight="Bold"/>
+                        <DatePicker SelectedDate="{Binding ChartStartDate, Mode=TwoWay}" Width="110" Margin="0,0,15,0"/>
 
-                            <lvc:CartesianChart Grid.Row="0" Series="{Binding NorthSeries}" Margin="0,0,0,10" DisableAnimations="True">
-                                
-                                <lvc:CartesianChart.AxisX>
-                                    <lvc:Axis Title="Date" Labels="{Binding DateLabels}" LabelsRotation="45"/>
-                                </lvc:CartesianChart.AxisX>
-                               
-                                <lvc:CartesianChart.AxisY>
-                                    <lvc:Axis Title="Cases"/>
-                                </lvc:CartesianChart.AxisY>
-                            </lvc:CartesianChart>
+                        <TextBlock Text="End Date:" VerticalAlignment="Center" Margin="0,0,5,0" FontWeight="Bold"/>
+                        <DatePicker SelectedDate="{Binding ChartEndDate, Mode=TwoWay}" Width="110" Margin="0,0,15,0"/>
 
-                            <lvc:CartesianChart Grid.Row="1" Series="{Binding NorthTrendSeries}" DisableAnimations="True">
-                                
-                                <lvc:CartesianChart.AxisX>
-                                    <lvc:Axis Labels="{Binding DateLabels}" ShowLabels="False"/>
-                                </lvc:CartesianChart.AxisX>
-                                 
-                                <lvc:CartesianChart.AxisY>
-                                    <lvc:Axis Title="Daily Change"/>
-                                </lvc:CartesianChart.AxisY>    
-                                
-                            </lvc:CartesianChart>
-                        </Grid>
-                    </TabItem>
-                    
-                    <TabItem Header="South">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="2*"/>
-                                <RowDefinition Height="1*"/>
-                            </Grid.RowDefinitions>
+                        <Button Content="Filter" Command="{Binding FilterChartsCommand}" Width="90" Height="25" Margin="0,0,10,0"/>
+                        <Button Content="Reset" Command="{Binding ResetChartsCommand}" Width="60" Height="25"/>
+                    </StackPanel>
 
-                            <lvc:CartesianChart Grid.Row="0" Series="{Binding SouthSeries}" Margin="0,0,0,10" DisableAnimations="True">
-                                
-                                <lvc:CartesianChart.AxisX>
-                                    <lvc:Axis Title="Date" Labels="{Binding DateLabels}" LabelsRotation="45"/>
-                                </lvc:CartesianChart.AxisX>
-                                
-                                <lvc:CartesianChart.AxisY>
-                                    <lvc:Axis Title="Cases"/>
-                                </lvc:CartesianChart.AxisY>
-                                
-                            </lvc:CartesianChart>
+                    <TabControl>
+                        <TabItem Header="North">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="1*"/>
+                                </Grid.RowDefinitions>
 
-                            <lvc:CartesianChart Grid.Row="1" Series="{Binding SouthTrendSeries}" DisableAnimations="True">
-                                
-                                <lvc:CartesianChart.AxisX>
-                                    <lvc:Axis Labels="{Binding DateLabels}" ShowLabels="False" />
-                                </lvc:CartesianChart.AxisX>
-                                
-                                <lvc:CartesianChart.AxisY>
-                                    <lvc:Axis Title="Daily Change"/>
-                                </lvc:CartesianChart.AxisY>
-                                
-                            </lvc:CartesianChart>
-                        </Grid>
-                        
-                    </TabItem>
-                    
-                    <TabItem Header="Total">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="2*"/>
-                                <RowDefinition Height="1*"/>
-                            </Grid.RowDefinitions>
+                                <lvc:CartesianChart Grid.Row="0" Series="{Binding NorthSeries}" Margin="0,0,0,10" DisableAnimations="True">
 
-                            <lvc:CartesianChart Grid.Row="0" Series="{Binding TotalSeries}" Margin="0,0,0,10" DisableAnimations="True">
-                                
-                                <lvc:CartesianChart.AxisX>
-                                    <lvc:Axis Title="Date" Labels="{Binding DateLabels}" LabelsRotation="45" Sections="{Binding TotalChartSections}"/>
-                                </lvc:CartesianChart.AxisX>
-                                
-                                <lvc:CartesianChart.AxisY>
-                                    <lvc:Axis Title="Cases"/>
-                                </lvc:CartesianChart.AxisY>
-                                
-                            </lvc:CartesianChart>
+                                    <lvc:CartesianChart.AxisX>
+                                        <lvc:Axis Title="Date" Labels="{Binding DateLabels}" LabelsRotation="45"/>
+                                    </lvc:CartesianChart.AxisX>
 
-                            <Border Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20" 
-                                    Background="#EEFFFFFF" BorderBrush="LightGray" BorderThickness="1" Padding="10" CornerRadius="4">
-                                <StackPanel>
-                                    <TextBlock Text="Historical Events" FontWeight="Bold" FontSize="11" Margin="0,0,0,8" Foreground="#333333"/>
+                                    <lvc:CartesianChart.AxisY>
+                                        <lvc:Axis Title="Cases"/>
+                                    </lvc:CartesianChart.AxisY>
+                                </lvc:CartesianChart>
 
-                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                                        <Line X1="0" Y1="0" X2="20" Y2="0" Stroke="Red" StrokeThickness="2" StrokeDashArray="2" VerticalAlignment="Center" Margin="0,0,8,0"/>
-                                        <TextBlock Text="Mask Mandate (Apr '20)" FontSize="11" Foreground="#555555"/>
+                                <lvc:CartesianChart Grid.Row="1" Series="{Binding NorthTrendSeries}" DisableAnimations="True">
+
+                                    <lvc:CartesianChart.AxisX>
+                                        <lvc:Axis Labels="{Binding DateLabels}" ShowLabels="False"/>
+                                    </lvc:CartesianChart.AxisX>
+
+                                    <lvc:CartesianChart.AxisY>
+                                        <lvc:Axis Title="Daily Change"/>
+                                    </lvc:CartesianChart.AxisY>
+
+                                </lvc:CartesianChart>
+                            </Grid>
+                        </TabItem>
+
+                        <TabItem Header="South">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="1*"/>
+                                </Grid.RowDefinitions>
+
+                                <lvc:CartesianChart Grid.Row="0" Series="{Binding SouthSeries}" Margin="0,0,0,10" DisableAnimations="True">
+
+                                    <lvc:CartesianChart.AxisX>
+                                        <lvc:Axis Title="Date" Labels="{Binding DateLabels}" LabelsRotation="45"/>
+                                    </lvc:CartesianChart.AxisX>
+
+                                    <lvc:CartesianChart.AxisY>
+                                        <lvc:Axis Title="Cases"/>
+                                    </lvc:CartesianChart.AxisY>
+
+                                </lvc:CartesianChart>
+
+                                <lvc:CartesianChart Grid.Row="1" Series="{Binding SouthTrendSeries}" DisableAnimations="True">
+
+                                    <lvc:CartesianChart.AxisX>
+                                        <lvc:Axis Labels="{Binding DateLabels}" ShowLabels="False" />
+                                    </lvc:CartesianChart.AxisX>
+
+                                    <lvc:CartesianChart.AxisY>
+                                        <lvc:Axis Title="Daily Change"/>
+                                    </lvc:CartesianChart.AxisY>
+
+                                </lvc:CartesianChart>
+                            </Grid>
+
+                        </TabItem>
+
+                        <TabItem Header="Total">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="1*"/>
+                                </Grid.RowDefinitions>
+
+                                <lvc:CartesianChart Grid.Row="0" Series="{Binding TotalSeries}" Margin="0,0,0,10" DisableAnimations="True">
+
+                                    <lvc:CartesianChart.AxisX>
+                                        <lvc:Axis Title="Date" Labels="{Binding DateLabels}" LabelsRotation="45" Sections="{Binding TotalChartSections}"/>
+                                    </lvc:CartesianChart.AxisX>
+
+                                    <lvc:CartesianChart.AxisY>
+                                        <lvc:Axis Title="Cases"/>
+                                    </lvc:CartesianChart.AxisY>
+
+                                </lvc:CartesianChart>
+
+                                <Border Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20" 
+                                        Background="#EEFFFFFF" BorderBrush="LightGray" BorderThickness="1" Padding="10" CornerRadius="4">
+                                    <StackPanel>
+                                        <TextBlock Text="Historical Events" FontWeight="Bold" FontSize="11" Margin="0,0,0,8" Foreground="#333333"/>
+
+                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                            <Line X1="0" Y1="0" X2="20" Y2="0" Stroke="Red" StrokeThickness="2" StrokeDashArray="2" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                            <TextBlock Text="Mask Mandate (Apr 2020)" FontSize="11" Foreground="#555555"/>
+                                        </StackPanel>
+
+                                        <StackPanel Orientation="Horizontal">
+                                            <Line X1="0" Y1="0" X2="20" Y2="0" Stroke="Green" StrokeThickness="2" StrokeDashArray="2" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                            <TextBlock Text="Omicron Peak (Nov 2021)" FontSize="11" Foreground="#555555"/>
+                                        </StackPanel>
+
+                                        <StackPanel Orientation="Horizontal">
+                                            <Ellipse Width="8" Height="8" Fill="Red" Stroke="DarkRed" Margin="6,0,14,0" />
+                                            <TextBlock Text="Data Anomaly (2-Sigma)" FontSize="11" Foreground="#555555" />
+                                        </StackPanel>
                                     </StackPanel>
+                                </Border>
 
-                                    <StackPanel Orientation="Horizontal">
-                                        <Line X1="0" Y1="0" X2="20" Y2="0" Stroke="Green" StrokeThickness="2" StrokeDashArray="2" VerticalAlignment="Center" Margin="0,0,8,0"/>
-                                        <TextBlock Text="Omicron Peak (Nov '21)" FontSize="11" Foreground="#555555"/>
-                                    </StackPanel>
+                                <lvc:CartesianChart Grid.Row="1" Series="{Binding TotalTrendSeries}" DisableAnimations="True">
 
-                                    <StackPanel Orientation="Horizontal">
-                                        <Ellipse Width="8" Height="8" Fill="Red" Stroke="DarkRed" Margin="6,0,14,0" />
-                                        <TextBlock Text="Data Anomaly (2-Sigma)" FontSize="11" Foreground="#555555" />
-                                    </StackPanel>
-                                </StackPanel>
-                            </Border>
+                                    <lvc:CartesianChart.AxisX>
+                                        <lvc:Axis Labels="{Binding DateLabels}" ShowLabels="False" />
+                                    </lvc:CartesianChart.AxisX>
 
-                            <lvc:CartesianChart Grid.Row="1" Series="{Binding TotalTrendSeries}" DisableAnimations="True">
-                                
-                                <lvc:CartesianChart.AxisX>
-                                    <lvc:Axis Labels="{Binding DateLabels}" ShowLabels="False" />
-                                </lvc:CartesianChart.AxisX>
-                                
-                                <lvc:CartesianChart.AxisY>
-                                    <lvc:Axis Title="Daily Change"/>
-                                </lvc:CartesianChart.AxisY>
-                                
-                            </lvc:CartesianChart>
-                            
-                        </Grid>
-                    </TabItem>
-                </TabControl>
+                                    <lvc:CartesianChart.AxisY>
+                                        <lvc:Axis Title="Daily Change"/>
+                                    </lvc:CartesianChart.AxisY>
 
+                                </lvc:CartesianChart>
 
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                </DockPanel>
             </TabItem>
         </TabControl>
     </Grid>

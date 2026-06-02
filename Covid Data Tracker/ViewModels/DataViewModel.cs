@@ -15,6 +15,12 @@ namespace Covid_Data_Tracker.ViewModels
         private List<DataPoint> _allData;
         private ObservableCollection<DataPoint> _displayedData;
         private DateTime? _selectedDate;
+        private DateTime? _chartStartDate;
+        private DateTime? _chartEndDate;
+        private List<string> _dateLabels;
+
+        private AxisSection _maskSection;
+        private AxisSection _omicronSection;
 
         public ObservableCollection<DataPoint> DisplayedData
         {
@@ -28,8 +34,22 @@ namespace Covid_Data_Tracker.ViewModels
             set { _selectedDate = value; OnPropertyChanged(); }
         }
 
+        public DateTime? ChartStartDate
+        {
+            get => _chartStartDate;
+            set { _chartStartDate = value; OnPropertyChanged(); }
+        }
+
+        public DateTime? ChartEndDate
+        {
+            get => _chartEndDate;
+            set { _chartEndDate = value; OnPropertyChanged(); }
+        }
+
         public ICommand FindDateCommand { get; }
         public ICommand ClearDateCommand { get; }
+        public ICommand FilterChartsCommand { get; }
+        public ICommand ResetChartsCommand { get; }
 
         public SeriesCollection NorthSeries { get; set; } = new SeriesCollection();
         public SeriesCollection SouthSeries { get; set; } = new SeriesCollection();
@@ -39,9 +59,13 @@ namespace Covid_Data_Tracker.ViewModels
         public SeriesCollection SouthTrendSeries { get; set; } = new SeriesCollection();
         public SeriesCollection TotalTrendSeries { get; set; } = new SeriesCollection();
 
-        public List<string> DateLabels { get; set; } = new List<string>();
+        public List<string> DateLabels
+        {
+            get => _dateLabels;
+            set { _dateLabels = value; OnPropertyChanged(); }
+        }
 
-        public SectionsCollection TotalChartSections { get; set; }
+        public SectionsCollection TotalChartSections { get; set; } = new SectionsCollection();
 
         public DataViewModel(List<DataPoint> data)
         {
@@ -49,10 +73,39 @@ namespace Covid_Data_Tracker.ViewModels
 
             DisplayedData = new ObservableCollection<DataPoint>(_allData);
 
+            ChartStartDate = _allData.Min(d => d.ParsedDate);
+            ChartEndDate = _allData.Max(d => d.ParsedDate);
+
             FindDateCommand = new RelayCommand(ExecuteFindDate);
             ClearDateCommand = new RelayCommand(ExecuteClearDate);
 
+            FilterChartsCommand = new RelayCommand(ExecuteFilterCharts);
+            ResetChartsCommand = new RelayCommand(ExecuteResetCharts);
+
+            _maskSection = new AxisSection
+            {
+                Stroke = Brushes.Red,
+                StrokeThickness = 2,
+                SectionWidth = 0.5,
+                StrokeDashArray = new DoubleCollection { 2 },
+                Visibility = Visibility.Hidden // Start hidden
+            };
+
+            _omicronSection = new AxisSection
+            {
+                Stroke = Brushes.Green,
+                StrokeThickness = 2,
+                SectionWidth = 0.5,
+                StrokeDashArray = new DoubleCollection { 2 },
+                Visibility = Visibility.Hidden // Start hidden
+            };
+
+            TotalChartSections.Add(_maskSection);
+            TotalChartSections.Add(_omicronSection);
+
             LoadCharts();
+
+            UpdateChartData(_allData);
         }
 
         private void ExecuteFindDate(object obj)
@@ -75,6 +128,69 @@ namespace Covid_Data_Tracker.ViewModels
         {
             DisplayedData = new ObservableCollection<DataPoint>(_allData);
             SelectedDate = null;
+        }
+
+        private void ExecuteFilterCharts(object obj)
+        {
+            if(ChartStartDate==null || ChartEndDate==null) return;
+
+            var filteredData = _allData.Where(d => d.ParsedDate >= ChartStartDate && d.ParsedDate <= ChartEndDate).ToList();
+
+            if(filteredData.Count == 0)
+            {
+                MessageBox.Show("No data found in this date range.");
+                return;
+            }
+
+            UpdateChartData(filteredData);
+        }
+
+        private void ExecuteResetCharts(object obj)
+        {
+            ChartStartDate = _allData.Min(d => d.ParsedDate);
+            ChartEndDate = _allData.Max(d => d.ParsedDate);
+            UpdateChartData(_allData);
+        }
+
+        private void UpdateChartData(List<DataPoint> dataToShow)
+        {
+            DateLabels = dataToShow.Select(d => d.ParsedDate.ToString("MM/dd/yyyy")).ToList();
+
+            NorthSeries[0].Values = new ChartValues<int>(dataToShow.Select(d => d.WeeklyAverageNorth));
+            SouthSeries[0].Values = new ChartValues<int>(dataToShow.Select(d => d.WeeklyAverageSouth));
+            TotalSeries[0].Values = new ChartValues<int>(dataToShow.Select(d => d.WeeklyAverageNorth + d.WeeklyAverageSouth));
+
+            NorthTrendSeries[0].Values = new ChartValues<int>(dataToShow.Select(d => d.RateOfChangeNorth));
+            SouthTrendSeries[0].Values = new ChartValues<int>(dataToShow.Select(d => d.RateOfChangeSouth));
+            TotalTrendSeries[0].Values = new ChartValues<int>(dataToShow.Select(d => d.RateOfChangeNorth + d.RateOfChangeSouth));
+
+            TotalSeries[1].Values = new ChartValues<ObservablePoint>(
+                dataToShow.Select((d, index) => new {Data = d, Index = index})
+                          .Where(item => item.Data.IsAnomaly)
+                          .Select(item => new ObservablePoint(item.Index, item.Data.WeeklyAverageNorth + item.Data.WeeklyAverageSouth))
+             );
+
+            int maskIndex = dataToShow.FindIndex(d => d.ParsedDate.Month == 4 && d.ParsedDate.Year == 2020);
+            if (maskIndex >= 0)
+            {
+                _maskSection.Value = maskIndex;
+                _maskSection.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                _maskSection.Visibility = Visibility.Hidden;
+            }
+
+            int omicronIndex = dataToShow.FindIndex(d => d.ParsedDate.Month == 11 && d.ParsedDate.Year == 2021);
+            if (omicronIndex >= 0)
+            {
+                _omicronSection.Value = omicronIndex;
+                _omicronSection.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                _omicronSection.Visibility = Visibility.Hidden;
+            }
         }
 
         private void LoadCharts()
@@ -121,7 +237,8 @@ namespace Covid_Data_Tracker.ViewModels
                     PointGeometry = DefaultGeometries.Circle,
                     Fill = Brushes.Red,
                     Stroke = Brushes.DarkRed,
-                    MaxPointShapeDiameter = 12
+                    MaxPointShapeDiameter = 4,
+                    MinPointShapeDiameter = 4
                 }
             };
 
@@ -154,34 +271,6 @@ namespace Covid_Data_Tracker.ViewModels
                     PointGeometry = null
                 }
             };
-
-            TotalChartSections = new SectionsCollection();
-
-            int maskIndex = _allData.FindIndex(d => d.ParsedDate.Month == 4 && d.ParsedDate.Year == 2020);
-            if(maskIndex >= 0)
-            {
-                TotalChartSections.Add(new AxisSection
-                {
-                    Value = maskIndex,
-                    Stroke = Brushes.Red,
-                    StrokeThickness = 2,
-                    SectionWidth = 0.5,
-                    StrokeDashArray = new DoubleCollection { 2 },
-                });
-            }
-
-            int omicronIndex = _allData.FindIndex(d => d.ParsedDate.Month == 11 && d.ParsedDate.Year == 2021);
-            if (omicronIndex >= 0)
-            {
-                TotalChartSections.Add(new AxisSection
-                {
-                    Value = omicronIndex,
-                    Stroke = Brushes.Green,
-                    StrokeThickness = 2,
-                    SectionWidth = 0.5,
-                    StrokeDashArray = new DoubleCollection { 2 }
-                });
-            }
         }
     }
 }
