@@ -66,7 +66,19 @@
                                     </lvc:CartesianChart.AxisX>
 
                                     <lvc:CartesianChart.AxisY>
-                                        <lvc:Axis Title="Daily Change"/>
+                                        <lvc:Axis Title="Daily Change">
+
+                                            <lvc:Axis.Separator>
+                                                <lvc:Separator Step="500" />
+                                            </lvc:Axis.Separator>
+
+                                            <lvc:Axis.Sections>
+                                                <lvc:AxisSection Value="0" 
+                                                    Stroke="Black" 
+                                                    StrokeThickness="2" />
+                                            </lvc:Axis.Sections>
+
+                                        </lvc:Axis>
                                     </lvc:CartesianChart.AxisY>
 
                                 </lvc:CartesianChart>
@@ -99,7 +111,19 @@
                                     </lvc:CartesianChart.AxisX>
 
                                     <lvc:CartesianChart.AxisY>
-                                        <lvc:Axis Title="Daily Change"/>
+                                        <lvc:Axis Title="Daily Change">
+                                            
+                                            <lvc:Axis.Separator>
+                                                <lvc:Separator Step="500" />
+                                            </lvc:Axis.Separator>
+
+                                            <lvc:Axis.Sections>
+                                                <lvc:AxisSection Value="0" 
+                                                    Stroke="Black" 
+                                                    StrokeThickness="2" />
+                                            </lvc:Axis.Sections>
+
+                                        </lvc:Axis>
                                     </lvc:CartesianChart.AxisY>
 
                                 </lvc:CartesianChart>
@@ -155,7 +179,18 @@
                                     </lvc:CartesianChart.AxisX>
 
                                     <lvc:CartesianChart.AxisY>
-                                        <lvc:Axis Title="Daily Change"/>
+                                        <lvc:Axis Title="Daily Change" >
+                                            <lvc:Axis.Separator>
+                                                <lvc:Separator Step="500" />
+                                            </lvc:Axis.Separator>
+
+                                            <lvc:Axis.Sections>
+                                                <lvc:AxisSection Value="0" 
+                                                    Stroke="Black" 
+                                                    StrokeThickness="2" />  
+                                            </lvc:Axis.Sections>
+
+                                        </lvc:Axis>
                                     </lvc:CartesianChart.AxisY>
 
                                 </lvc:CartesianChart>
